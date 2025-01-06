@@ -1,0 +1,33 @@
+// build.gradle (Raíz del Proyecto)
+buildscript {
+    ext.kotlin_version = '1.8.0'
+    repositories {
+        google()  // Asegúrate de que esta línea esté presente
+        mavenCentral()  // Repositorio Maven Central
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.2'  // Asegúrate de usar la versión adecuada de Gradle
+        classpath 'com.google.gms:google-services:4.3.15'
+    }
+}
+
+allprojects {
+    repositories {
+        google()  // Repositorio de Google, necesario para Firebase
+        mavenCentral()  // Repositorio Maven Central
+    }
+}
+
+rootProject.buildDir = "../build"  // Define el directorio de construcción del proyecto raíz
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"  // Establece el directorio de construcción para cada subproyecto
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")  // Asegura que todos los subproyectos dependan de ':app'
+}
+
+// Tarea para limpiar el directorio de construcción
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
