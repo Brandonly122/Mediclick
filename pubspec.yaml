@@ -14,25 +14,34 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore: ^5.5.1
+  intl: ^0.20.1
   firebase_auth: ^5.3.4
   firebase_core: ^3.8.1
-  firebase_storage: ^12.3.7
+  firebase_storage: ^12.4.0
   image_picker: ^1.1.2
   provider: ^6.1.2
   permission_handler: ^11.3.1
-  firebase_messaging: ^15.1.6
-  intl: ^0.20.1 
+  firebase_messaging: ^15.1.6 
   flutter_slidable: ^3.1.2
   flutter_neumorphic_plus: ^3.4.0
+  animations: ^2.0.11
+  google_fonts: ^6.2.1
+  font_awesome_flutter: ^10.8.0
+  
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.3
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/main-logo.png"
+
 
 
 flutter:
-
- 
   uses-material-design: true
 

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/add_card.dart';
 
 class AddReminderScreen extends StatefulWidget {
   final Map<String, dynamic>? reminderData;
+
   const AddReminderScreen({Key? key, this.reminderData}) : super(key: key);
 
   @override
@@ -114,12 +117,10 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
 
       Navigator.pop(context); // Regresa a la pantalla anterior
     } on FirebaseException catch (e) {
-      // Maneja errores específicos de Firebase
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error de Firebase: ${e.message}')),
       );
     } catch (e) {
-      // Maneja otros errores inesperados
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Error inesperado. Inténtalo de nuevo.'),
@@ -137,31 +138,43 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
           widget.reminderData != null
               ? 'Editar Recordatorio'
               : 'Agregar Recordatorio',
-          style: const TextStyle(color: Colors.white),
+          style: GoogleFonts.poppins(
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
         ),
         centerTitle: true,
       ),
       body: Container(
-        color: Colors.blue[50],
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ListView(
             children: [
               AddCard(
                 label: 'Nombre de la Medicina',
-                icon: Icons.medical_services,
+                icon: FontAwesomeIcons.pills,
                 controller: _medicineNameController,
               ),
               const SizedBox(height: 10),
               AddCard(
                 label: 'Dosis',
-                icon: Icons.science,
+                icon: FontAwesomeIcons.prescriptionBottleAlt,
                 controller: _doseController,
               ),
               const SizedBox(height: 10),
               AddCard(
                 label: 'Hora (HH:MM)',
-                icon: Icons.access_time,
+                icon: FontAwesomeIcons.clock,
                 controller: _timeController,
                 onTap: () => _selectTime(context),
                 isReadOnly: true,
@@ -169,14 +182,14 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
               const SizedBox(height: 10),
               AddCard(
                 label: 'Duración (en días)',
-                icon: Icons.calendar_today,
+                icon: FontAwesomeIcons.calendarAlt,
                 controller: _durationController,
                 isNumberInput: true,
               ),
               const SizedBox(height: 10),
               AddCard(
                 label: 'Descripción (opcional)',
-                icon: Icons.description,
+                icon: FontAwesomeIcons.notesMedical,
                 controller: _descriptionController,
               ),
               const SizedBox(height: 30),
@@ -184,16 +197,23 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
                 onPressed: _saveReminder,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  backgroundColor: Colors.lightBlueAccent,
+                  backgroundColor: Colors.lightBlue,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
                   ),
+                  shadowColor: Colors.black.withOpacity(0.3),
+                  elevation: 8,
                 ),
                 child: Text(
                   widget.reminderData != null
                       ? 'Guardar Cambios'
                       : 'Agregar Recordatorio',
-                  style: const TextStyle(fontSize: 18),
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
               ),
             ],
